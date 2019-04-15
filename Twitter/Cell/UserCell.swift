@@ -9,6 +9,14 @@
 import UIKit
 
 class UserCell: UICollectionViewCell {
+    var user : User? {
+        didSet{
+            usernameLabel.text = user?.name
+            userAccountLabel.text = user?.userName
+            bodyTextView.text = user?.bodyText
+            profileImageView.image = user?.profileImage
+        }
+    }
     let profileImageView : UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
