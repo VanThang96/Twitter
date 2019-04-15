@@ -42,7 +42,15 @@ extension HomeViewController {
 }
 extension HomeViewController : UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width, height: 150)
+        let user = userViewModel.getItemAtIndex(index: indexPath.item)
+        
+        //estimation height of text in cell
+        let widthBodyTextView = view.frame.width - 8 - 50 - 8
+        let size = CGSize(width: widthBodyTextView, height: 1000)
+        let attributes = [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 15)]
+        let estimatedFrame = NSString(string: user.bodyText).boundingRect(with: size, options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: attributes, context: nil)
+        
+        return CGSize(width: view.frame.width, height: estimatedFrame.height + 8 + 20 + 20 + 1 + 20)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSize(width: view.frame.width, height: 50)
@@ -50,4 +58,5 @@ extension HomeViewController : UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
         return CGSize(width: view.frame.width, height: 50)
     }
+    
 }
