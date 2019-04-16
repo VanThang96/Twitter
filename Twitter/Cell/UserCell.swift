@@ -57,7 +57,7 @@ class UserCell: UICollectionViewCell {
         button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
         button.setTitleColor(UIColor.cyan, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(named: "follow")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        button.setImage(UIImage(named: "followimg")?.withRenderingMode(.alwaysTemplate), for: .normal)
         button.imageView?.tintColor = UIColor.cyan
         button.imageView?.contentMode = .scaleAspectFit
         return button

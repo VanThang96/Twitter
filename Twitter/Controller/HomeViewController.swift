@@ -15,10 +15,32 @@ class HomeViewController: UICollectionViewController {
     var userViewModel = UserViewModel()
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupNavigationBarItem()
+        
         collectionView.backgroundColor = .white
         collectionView.register(UserCell.self, forCellWithReuseIdentifier: cellId)
         collectionView.register(UserHeaderCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerId)
         collectionView.register(UserFooterCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: footerId)
+    }
+    func setupNavigationBarItem(){
+        let titleImageView = UIImageView(image: UIImage(named: "title_icon"))
+        titleImageView.frame = CGRect(x: 0, y: 0, width: 34, height: 34)
+        titleImageView.contentMode = .scaleAspectFit
+        navigationItem.titleView = titleImageView
+        
+        let followButton = UIButton(type: .system)
+        followButton.setImage(UIImage(named: "follow")?.withRenderingMode(.alwaysOriginal), for: .normal)
+        followButton.frame = CGRect(x: 0, y: 0, width: 34, height: 34)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: followButton)
+        
+        let searchButton = UIButton(type: .system)
+        searchButton.setImage(UIImage(named: "search")?.withRenderingMode(.alwaysOriginal), for: .normal)
+        searchButton.frame = CGRect(x: 0, y: 0, width: 34, height: 34)
+        
+        let tweetButton = UIButton(type: .system)
+        tweetButton.setImage(UIImage(named: "compose")?.withRenderingMode(.alwaysOriginal), for: .normal)
+        tweetButton.frame = CGRect(x: 0, y: 0, width: 34, height: 34)
+        navigationItem.rightBarButtonItems = [UIBarButtonItem(customView: tweetButton),UIBarButtonItem(customView: searchButton)]
     }
 }
 extension HomeViewController {
@@ -42,15 +64,10 @@ extension HomeViewController {
 }
 extension HomeViewController : UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let user = userViewModel.getItemAtIndex(index: indexPath.item)
-        
         //estimation height of text in cell
         let widthBodyTextView = view.frame.width - 8 - 50 - 8
-        let size = CGSize(width: widthBodyTextView, height: 1000)
-        let attributes = [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 15)]
-        let estimatedFrame = NSString(string: user.bodyText).boundingRect(with: size, options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: attributes, context: nil)
-        
-        return CGSize(width: view.frame.width, height: estimatedFrame.height + 8 + 20 + 20 + 1 + 20)
+        let estimatedheight = userViewModel.estimatedTextHeight(atIndex: indexPath.item, widthBodyTextView:widthBodyTextView )
+        return CGSize(width: view.frame.width, height: estimatedheight + 8 + 20 + 20 + 1 + 20)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSize(width: view.frame.width, height: 50)

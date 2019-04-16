@@ -25,4 +25,12 @@ class UserViewModel {
     func getCount() ->Int {
         return users.count
     }
+    func estimatedTextHeight(atIndex : Int,widthBodyTextView : CGFloat) ->CGFloat {
+        let user = users[atIndex]
+        //estimation height of text in cell
+        let size = CGSize(width: widthBodyTextView, height: 1000)
+        let attributes = [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 15)]
+        let estimatedFrame = NSString(string: user.bodyText).boundingRect(with: size, options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: attributes, context: nil)
+        return estimatedFrame.height
+    }
 }
