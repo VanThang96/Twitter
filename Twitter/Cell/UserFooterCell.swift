@@ -19,12 +19,23 @@ class UserFooterCell: UICollectionViewCell {
     }()
     override init(frame: CGRect) {
         super.init(frame: frame)
+        let whiteBackground = UIView()
+        whiteBackground.backgroundColor = .white
+        whiteBackground.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(whiteBackground)
         addSubview(footerLabel)
+        let whiteBackgroundConstrants = [
+            whiteBackground.topAnchor.constraint(equalTo: topAnchor),
+            whiteBackground.leadingAnchor.constraint(equalTo: leadingAnchor),
+            whiteBackground.trailingAnchor.constraint(equalTo: trailingAnchor),
+            whiteBackground.bottomAnchor.constraint(equalTo: bottomAnchor,constant : -14)
+        ]
+        NSLayoutConstraint.activate(whiteBackgroundConstrants)
         let footerLabelConstraints = [
             footerLabel.topAnchor.constraint(equalTo: topAnchor),
             footerLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             footerLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
-            footerLabel.bottomAnchor.constraint(equalTo: bottomAnchor)
+            footerLabel.bottomAnchor.constraint(equalTo: bottomAnchor,constant : -14)
         ]
         NSLayoutConstraint.activate(footerLabelConstraints)
     }

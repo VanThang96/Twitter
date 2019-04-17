@@ -17,7 +17,7 @@ class HomeViewController: UICollectionViewController {
         super.viewDidLoad()
         setupNavigationBarItem()
         
-        collectionView.backgroundColor = .white
+        collectionView.backgroundColor = UIColor(red: 232/250, green: 236/250, blue: 242/250, alpha: 1)
         collectionView.register(UserCell.self, forCellWithReuseIdentifier: cellId)
         collectionView.register(UserHeaderCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerId)
         collectionView.register(UserFooterCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: footerId)
@@ -70,10 +70,21 @@ extension HomeViewController : UICollectionViewDelegateFlowLayout {
         return CGSize(width: view.frame.width, height: estimatedheight + 8 + 20 + 20 + 1 + 20)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        if section == 1{
+            return .zero
+        }
         return CGSize(width: view.frame.width, height: 50)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        return CGSize(width: view.frame.width, height: 50)
+        if section == 1{
+            return .zero
+        }
+        return CGSize(width: view.frame.width, height: 64)
     }
-    
+    override func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 2
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
 }

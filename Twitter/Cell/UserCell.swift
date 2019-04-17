@@ -71,8 +71,7 @@ class UserCell: UICollectionViewCell {
     }()
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        
+        backgroundColor = .white
         addSubview(profileImageView)
         let profileImageConstraints = [profileImageView.topAnchor.constraint(equalTo: topAnchor, constant: 8),
         profileImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),

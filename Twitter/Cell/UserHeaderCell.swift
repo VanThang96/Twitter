@@ -18,6 +18,7 @@ class UserHeaderCell: UICollectionViewCell {
     }()
     override init(frame: CGRect) {
         super.init(frame: frame)
+        backgroundColor = .white
         addSubview(headerLabel)
         let headerLabelConstraints = [
             headerLabel.topAnchor.constraint(equalTo: topAnchor),
