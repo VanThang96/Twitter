@@ -12,13 +12,16 @@ class HomeViewController: UICollectionViewController {
     private let cellId = "cellId"
     private let headerId = "headerId"
     private let footerId = "footerId"
+    private let tweetId = "tweetId"
     var userViewModel = UserViewModel()
+    var tweetViewModel = TweetViewModel()
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBarItem()
         
         collectionView.backgroundColor = UIColor(red: 232/250, green: 236/250, blue: 242/250, alpha: 1)
         collectionView.register(UserCell.self, forCellWithReuseIdentifier: cellId)
+        collectionView.register(TweetCell.self, forCellWithReuseIdentifier: tweetId)
         collectionView.register(UserHeaderCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerId)
         collectionView.register(UserFooterCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: footerId)
     }
@@ -45,12 +48,22 @@ class HomeViewController: UICollectionViewController {
 }
 extension HomeViewController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if section == 1 {
+            return tweetViewModel.getCount()
+        }
         return userViewModel.getCount()
     }
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! UserCell
-        cell.user = userViewModel.getItemAtIndex(index: indexPath.item)
-        return cell
+        if indexPath.section == 0{
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! UserCell
+            cell.user = userViewModel.getItemAtIndex(index: indexPath.item)
+             return cell
+        }else if indexPath.section == 1{
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: tweetId, for: indexPath) as! TweetCell
+            cell.tweet = tweetViewModel.getItemAtIndex(index: indexPath.item)
+            return cell
+        }
+        return UICollectionViewCell()
     }
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if kind == UICollectionView.elementKindSectionHeader {
@@ -61,6 +74,7 @@ extension HomeViewController {
             return footer
         }
     }
+    
 }
 extension HomeViewController : UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -70,7 +84,7 @@ extension HomeViewController : UICollectionViewDelegateFlowLayout {
         return CGSize(width: view.frame.width, height: estimatedheight + 8 + 20 + 20 + 1 + 20)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        if section == 1{
+        if section == 1 {
             return .zero
         }
         return CGSize(width: view.frame.width, height: 50)
