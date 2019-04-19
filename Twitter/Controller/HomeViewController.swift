@@ -74,6 +74,9 @@ extension HomeViewController {
             return footer
         }
     }
+    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+        collectionViewLayout.invalidateLayout()
+    }
     
 }
 extension HomeViewController : UICollectionViewDelegateFlowLayout {

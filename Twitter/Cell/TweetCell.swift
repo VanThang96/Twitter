@@ -41,6 +41,30 @@ class TweetCell: UICollectionViewCell {
         textView.translatesAutoresizingMaskIntoConstraints = false
         return textView
     }()
+    let replyButton : UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "reply"), for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    let retweetButton : UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "retweet"), for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    let likeButton : UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "like"), for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    let sendButton : UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "send_message"), for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
     let separatorLineView: UIView = {
         let lineView = UIView()
         lineView.backgroundColor = UIColor(white: 0, alpha: 0.25)
@@ -51,6 +75,7 @@ class TweetCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .white
+        
         addSubview(profileImageView)
         let profileImageConstraints = [profileImageView.topAnchor.constraint(equalTo: topAnchor, constant: 8),
                                        profileImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
@@ -71,11 +96,67 @@ class TweetCell: UICollectionViewCell {
         let messageTextViewConstraints = [messageTextView.topAnchor.constraint(equalTo: topAnchor, constant: 8),
                                           messageTextView.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 8),
                                           messageTextView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
-                                          messageTextView.bottomAnchor.constraint(equalTo: separatorLineView.topAnchor)]
+                                          messageTextView.bottomAnchor.constraint(equalTo: separatorLineView.topAnchor,constant : -24)]
         NSLayoutConstraint.activate(messageTextViewConstraints)
+        
+        setupBottomButton()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    fileprivate func setupBottomButton(){
+        let replyButtonContainer = UIView()
+        let retweetButtonContainer = UIView()
+        let likeButtonContainer = UIView()
+        let sendButtonContainer = UIView()
+    
+        
+        let buttonStackView = UIStackView(arrangedSubviews: [
+                replyButtonContainer,retweetButtonContainer,likeButtonContainer,sendButtonContainer
+            ])
+        buttonStackView.axis = .horizontal
+        buttonStackView.distribution = .fillEqually
+        buttonStackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        addSubview(buttonStackView)
+        let buttonStackViewViewConstraints = [
+            buttonStackView.topAnchor.constraint(equalTo: messageTextView.bottomAnchor),
+            buttonStackView.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 8),
+            buttonStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            buttonStackView.heightAnchor.constraint(equalToConstant: 20)]
+        NSLayoutConstraint.activate(buttonStackViewViewConstraints)
+        
+        replyButtonContainer.addSubview(replyButton)
+        let replyButtonViewConstraints = [
+            replyButton.topAnchor.constraint(equalTo: replyButtonContainer.topAnchor),
+            replyButton.leadingAnchor.constraint(equalTo: replyButtonContainer.leadingAnchor),
+            replyButton.widthAnchor.constraint(equalToConstant: 20),
+            replyButton.heightAnchor.constraint(equalToConstant: 20)]
+        NSLayoutConstraint.activate(replyButtonViewConstraints)
+        
+        retweetButtonContainer.addSubview(retweetButton)
+        let retweetButtonViewConstraints = [
+            retweetButton.topAnchor.constraint(equalTo: retweetButtonContainer.topAnchor),
+            retweetButton.leadingAnchor.constraint(equalTo: retweetButtonContainer.leadingAnchor),
+            retweetButton.widthAnchor.constraint(equalToConstant: 20),
+            retweetButton.heightAnchor.constraint(equalToConstant: 20)]
+        NSLayoutConstraint.activate(retweetButtonViewConstraints)
+        
+        likeButtonContainer.addSubview(likeButton)
+        let likeButtonViewConstraints = [
+            likeButton.topAnchor.constraint(equalTo: likeButtonContainer.topAnchor),
+            likeButton.leadingAnchor.constraint(equalTo: likeButtonContainer.leadingAnchor),
+            likeButton.widthAnchor.constraint(equalToConstant: 20),
+            likeButton.heightAnchor.constraint(equalToConstant: 20)]
+        NSLayoutConstraint.activate(likeButtonViewConstraints)
+        
+        sendButtonContainer.addSubview(sendButton)
+        let sendButtonViewConstraints = [
+            sendButton.topAnchor.constraint(equalTo: sendButtonContainer.topAnchor),
+            sendButton.leadingAnchor.constraint(equalTo: sendButtonContainer.leadingAnchor),
+            sendButton.widthAnchor.constraint(equalToConstant: 20),
+            sendButton.heightAnchor.constraint(equalToConstant: 20)]
+        NSLayoutConstraint.activate(sendButtonViewConstraints)
     }
 }
