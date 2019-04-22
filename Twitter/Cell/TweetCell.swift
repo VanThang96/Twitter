@@ -11,9 +11,10 @@ import UIKit
 class TweetCell: UICollectionViewCell {
     var tweet : Tweet? {
         didSet{
-            let atributedText = NSMutableAttributedString(string: (tweet?.user.name)!, attributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 16)])
+            setupProfileImage()
+            let atributedText = NSMutableAttributedString(string: (tweet?.user!.name)!, attributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 16)])
             
-            let stringNameUser = "  \((tweet?.user.userName)!)\n"
+            let stringNameUser = "  \((tweet?.user!.username)!)\n"
             atributedText.append(NSAttributedString(string: stringNameUser, attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 15),NSAttributedString.Key.foregroundColor : UIColor.gray]))
             
             let paragraphStyle = NSMutableParagraphStyle()
@@ -24,7 +25,6 @@ class TweetCell: UICollectionViewCell {
             atributedText.append(NSAttributedString(string: (tweet?.message)!, attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 15)]))
             
             messageTextView.attributedText = atributedText
-            profileImageView.image = tweet?.user.profileImage
         }
     }
     let profileImageView : UIImageView = {
@@ -38,6 +38,7 @@ class TweetCell: UICollectionViewCell {
     }()
     let messageTextView : UITextView = {
         let textView = UITextView()
+        textView.isScrollEnabled = false
         textView.translatesAutoresizingMaskIntoConstraints = false
         return textView
     }()
@@ -158,5 +159,10 @@ class TweetCell: UICollectionViewCell {
             sendButton.widthAnchor.constraint(equalToConstant: 20),
             sendButton.heightAnchor.constraint(equalToConstant: 20)]
         NSLayoutConstraint.activate(sendButtonViewConstraints)
+    }
+    fileprivate func setupProfileImage(){
+        if let imageUrl = tweet?.user!.profileImageUrl{
+            profileImageView.getImageFromUrl(from: imageUrl)
+        }
     }
 }

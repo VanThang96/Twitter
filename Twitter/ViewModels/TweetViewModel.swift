@@ -10,13 +10,13 @@ import Foundation
 import UIKit
 
 class TweetViewModel {
-    let tweets : [Tweet]!
-    let userViewModel = UserViewModel()
-    init() {
-        tweets = [
-            Tweet(user: userViewModel.getItemAtIndex(index: 0), message: "We'll start by adding in a placeholder image with a corner radius.  Next, we'll fill out the text information in the middle column."),
-            Tweet(user: userViewModel.getItemAtIndex(index: 1), message: "We'll start by adding in a placeholder image with a corner radius.  Next, we'll fill out the text information in the middle column.")
-        ]
+    var tweets : [Tweet] = []
+    
+    func call(complete:@escaping ()->()){
+        APIRouter.shareInstance.fetchAllUser { [weak self](data, error) in
+            self?.tweets = data!.tweets!
+            complete()
+        }
     }
     func getAllItem() -> [Tweet]{
         return tweets
@@ -27,5 +27,11 @@ class TweetViewModel {
     func getCount() ->Int {
         return tweets.count
     }
-   
+    func estimatedTextHeight(atTweet: Tweet,widthBodyTextView : CGFloat) ->CGFloat {
+        //estimation height of text in cell
+        let size = CGSize(width: widthBodyTextView, height: 1000)
+        let attributes = [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 15)]
+        let estimatedFrame = NSString(string: atTweet.message!).boundingRect(with: size, options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: attributes, context: nil)
+        return estimatedFrame.height
+    }
 }

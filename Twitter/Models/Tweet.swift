@@ -7,11 +7,8 @@
 //
 
 import Foundation
-struct Tweet {
-    let user : User
-    let message : String
-    init(user : User , message : String) {
-        self.user = user
-        self.message = message
-    }
+struct Tweet : Decodable {
+    let user : User?
+    let image : Image?
+    let message : String?
 }

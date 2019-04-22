@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class HomeViewController: UICollectionViewController {
     private let cellId = "cellId"
@@ -17,15 +18,20 @@ class HomeViewController: UICollectionViewController {
     var tweetViewModel = TweetViewModel()
     override func viewDidLoad() {
         super.viewDidLoad()
+        userViewModel.call { [weak self] in
+            self?.collectionView.reloadData()
+        }
+        tweetViewModel.call {[weak self] in
+            self?.collectionView.reloadData()
+        }
         setupNavigationBarItem()
-        
         collectionView.backgroundColor = UIColor(red: 232/250, green: 236/250, blue: 242/250, alpha: 1)
         collectionView.register(UserCell.self, forCellWithReuseIdentifier: cellId)
         collectionView.register(TweetCell.self, forCellWithReuseIdentifier: tweetId)
         collectionView.register(UserHeaderCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerId)
         collectionView.register(UserFooterCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: footerId)
     }
-    func setupNavigationBarItem(){
+    fileprivate func setupNavigationBarItem(){
         let titleImageView = UIImageView(image: UIImage(named: "title_icon"))
         titleImageView.frame = CGRect(x: 0, y: 0, width: 34, height: 34)
         titleImageView.contentMode = .scaleAspectFit
@@ -58,7 +64,8 @@ extension HomeViewController {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! UserCell
             cell.user = userViewModel.getItemAtIndex(index: indexPath.item)
              return cell
-        }else if indexPath.section == 1{
+        }
+        else if indexPath.section == 1{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: tweetId, for: indexPath) as! TweetCell
             cell.tweet = tweetViewModel.getItemAtIndex(index: indexPath.item)
             return cell
@@ -82,8 +89,15 @@ extension HomeViewController {
 extension HomeViewController : UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         //estimation height of text in cell
-        let widthBodyTextView = view.frame.width - 8 - 50 - 8
-        let estimatedheight = userViewModel.estimatedTextHeight(atIndex: indexPath.item, widthBodyTextView:widthBodyTextView )
+        
+        if indexPath.section == 1 {
+            let widthBodyTextView = view.frame.width - 8 - 50 - 8 - 8
+            let estimatedheight = tweetViewModel.estimatedTextHeight(atTweet : tweetViewModel.getItemAtIndex(index : indexPath.item), widthBodyTextView: widthBodyTextView )
+            return CGSize(width: view.frame.width, height: estimatedheight + 8 + 20 + 20 + 1 + 24 + 8)
+         
+        }
+        let widthBodyTextView = view.frame.width - 8 - 50 - 8 - 8
+        let estimatedheight = userViewModel.estimatedTextHeight(atUser : userViewModel.getItemAtIndex(index: indexPath.item), widthBodyTextView: widthBodyTextView )
         return CGSize(width: view.frame.width, height: estimatedheight + 8 + 20 + 20 + 1 + 20)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {

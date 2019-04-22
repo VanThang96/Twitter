@@ -11,16 +11,15 @@ import UIKit
 class UserCell: UICollectionViewCell {
     var user : User? {
         didSet{
-            usernameLabel.text = user?.name
-            userAccountLabel.text = user?.userName
-            bodyTextView.text = user?.bodyText
-            profileImageView.image = user?.profileImage
+            setupProfileImage()
+            usernameLabel.text = user!.name
+            userAccountLabel.text = user!.username
+            bodyTextView.text = user!.bio
         }
     }
     let profileImageView : UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
-        imageView.image = UIImage(named: "avatar")
         imageView.layer.cornerRadius = 25
         imageView.layer.masksToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -119,7 +118,7 @@ class UserCell: UICollectionViewCell {
         let bodyTextViewConstraint = [
             bodyTextView.topAnchor.constraint(equalTo: userAccountLabel.bottomAnchor),
             bodyTextView.bottomAnchor.constraint(equalTo: separatorLineView.topAnchor),
-            bodyTextView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            bodyTextView.trailingAnchor.constraint(equalTo: trailingAnchor,constant: -8),
             bodyTextView.leadingAnchor.constraint(equalTo: userAccountLabel.leadingAnchor)
         ]
         NSLayoutConstraint.activate(bodyTextViewConstraint)
@@ -129,5 +128,10 @@ class UserCell: UICollectionViewCell {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    fileprivate func setupProfileImage(){
+        if let imageUrl = user?.profileImageUrl!{
+            profileImageView.getImageFromUrl(from: imageUrl)
+        }
     }
 }

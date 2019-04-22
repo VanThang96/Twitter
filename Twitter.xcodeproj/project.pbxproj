@@ -8,9 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		233136C022623A7900B97C0E /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233136BF22623A7900B97C0E /* HomeViewController.swift */; };
+		23407618226B69410006201F /* APIRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23407617226B69410006201F /* APIRouter.swift */; };
+		2340761A226B6A8B0006201F /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23407619226B6A8B0006201F /* Data.swift */; };
+		2340761C226B813A0006201F /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2340761B226B813A0006201F /* Image.swift */; };
 		2369462A22618C0F00D7B949 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2369462922618C0F00D7B949 /* AppDelegate.swift */; };
 		2369463122618C1100D7B949 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2369463022618C1100D7B949 /* Assets.xcassets */; };
 		2369463422618C1100D7B949 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2369463222618C1100D7B949 /* LaunchScreen.storyboard */; };
+		238D1276226D6F9200F31823 /* Extension+UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238D1275226D6F9200F31823 /* Extension+UIImageView.swift */; };
 		238F6AE7226495B40053B157 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238F6AE6226495B40053B157 /* User.swift */; };
 		238F6AEB226496460053B157 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238F6AEA226496460053B157 /* UserViewModel.swift */; };
 		23C687482267793E00EF7799 /* TweetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C687472267793E00EF7799 /* TweetCell.swift */; };
@@ -24,11 +28,15 @@
 
 /* Begin PBXFileReference section */
 		233136BF22623A7900B97C0E /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		23407617226B69410006201F /* APIRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRouter.swift; sourceTree = "<group>"; };
+		23407619226B6A8B0006201F /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
+		2340761B226B813A0006201F /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
 		2369462622618C0F00D7B949 /* Twitter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Twitter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2369462922618C0F00D7B949 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2369463022618C1100D7B949 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2369463322618C1100D7B949 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2369463522618C1100D7B949 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		238D1275226D6F9200F31823 /* Extension+UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIImageView.swift"; sourceTree = "<group>"; };
 		238F6AE6226495B40053B157 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		238F6AEA226496460053B157 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		23C687472267793E00EF7799 /* TweetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetCell.swift; sourceTree = "<group>"; };
@@ -65,6 +73,14 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		23407616226B69220006201F /* API */ = {
+			isa = PBXGroup;
+			children = (
+				23407617226B69410006201F /* APIRouter.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
 		2369461D22618C0F00D7B949 = {
 			isa = PBXGroup;
 			children = (
@@ -86,6 +102,8 @@
 		2369462822618C0F00D7B949 /* Twitter */ = {
 			isa = PBXGroup;
 			children = (
+				238D1274226D6F5E00F31823 /* Extension */,
+				23407616226B69220006201F /* API */,
 				238F6AE9226496290053B157 /* ViewModels */,
 				238F6AE8226495B80053B157 /* Models */,
 				23DF90B922645783009540B7 /* Controller */,
@@ -97,11 +115,21 @@
 			path = Twitter;
 			sourceTree = "<group>";
 		};
+		238D1274226D6F5E00F31823 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				238D1275226D6F9200F31823 /* Extension+UIImageView.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		238F6AE8226495B80053B157 /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				238F6AE6226495B40053B157 /* User.swift */,
 				23E2D3D02268D03F00D3CE1E /* Tweet.swift */,
+				23407619226B6A8B0006201F /* Data.swift */,
+				2340761B226B813A0006201F /* Image.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -218,12 +246,14 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Twitter/Pods-Twitter-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/LBTAComponents/LBTAComponents.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LBTAComponents.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -266,7 +296,11 @@
 				23E2D3D12268D03F00D3CE1E /* Tweet.swift in Sources */,
 				23C687482267793E00EF7799 /* TweetCell.swift in Sources */,
 				23DF90BB22645985009540B7 /* UserFooterCell.swift in Sources */,
+				2340761C226B813A0006201F /* Image.swift in Sources */,
 				23E2D3D32268DB7800D3CE1E /* TweetViewModel.swift in Sources */,
+				238D1276226D6F9200F31823 /* Extension+UIImageView.swift in Sources */,
+				2340761A226B6A8B0006201F /* Data.swift in Sources */,
+				23407618226B69410006201F /* APIRouter.swift in Sources */,
 				238F6AE7226495B40053B157 /* User.swift in Sources */,
 				238F6AEB226496460053B157 /* UserViewModel.swift in Sources */,
 				23DF90B722643BF5009540B7 /* UserHeaderCell.swift in Sources */,
