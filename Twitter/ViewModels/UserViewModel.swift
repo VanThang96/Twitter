@@ -10,14 +10,18 @@ import Foundation
 import UIKit
 
 class UserViewModel {
+    // MARK : var
     var users : [User] = []
     
+    // MARK : Method
     func call(complete: @escaping ()->()) {
-        APIRouter.shareInstance.fetchAllUser { (data, error) in
+        FetchDataService.getListResponse(onCompletion: { [weak self](response) in
             DispatchQueue.main.async {
-                 self.users = data!.users!
+                self?.users = response.users!
             }
             complete()
+        }) { (error) in
+            print(error!)
         }
     }
     func getAllItem() -> [User]{

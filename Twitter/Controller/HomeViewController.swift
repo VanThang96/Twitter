@@ -10,22 +10,36 @@ import UIKit
 import Alamofire
 
 class HomeViewController: UICollectionViewController {
+    // MARK : let
     private let cellId = "cellId"
     private let headerId = "headerId"
     private let footerId = "footerId"
     private let tweetId = "tweetId"
+    
+    // MARK : var
     var userViewModel = UserViewModel()
     var tweetViewModel = TweetViewModel()
+    
+    // MARK : Method
     override func viewDidLoad() {
         super.viewDidLoad()
+        waitingDataReturnCompletion()
+        setupNavigationBarItem()
+        registerCellForCollectionView()
+        firstSettingCollectionView()
+    }
+    fileprivate func waitingDataReturnCompletion(){
         userViewModel.call { [weak self] in
             self?.collectionView.reloadData()
         }
         tweetViewModel.call {[weak self] in
             self?.collectionView.reloadData()
         }
-        setupNavigationBarItem()
+    }
+    fileprivate func firstSettingCollectionView() {
         collectionView.backgroundColor = UIColor(red: 232/250, green: 236/250, blue: 242/250, alpha: 1)
+    }
+    fileprivate func registerCellForCollectionView(){
         collectionView.register(UserCell.self, forCellWithReuseIdentifier: cellId)
         collectionView.register(TweetCell.self, forCellWithReuseIdentifier: tweetId)
         collectionView.register(UserHeaderCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerId)
@@ -52,6 +66,8 @@ class HomeViewController: UICollectionViewController {
         navigationItem.rightBarButtonItems = [UIBarButtonItem(customView: tweetButton),UIBarButtonItem(customView: searchButton)]
     }
 }
+
+// MARK : CollectionViewDataSource And CollectionViewDelegate
 extension HomeViewController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if section == 1 {
@@ -86,10 +102,12 @@ extension HomeViewController {
     }
     
 }
+
+// MARK : CollectionViewDelegateFlowLayout
 extension HomeViewController : UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        //estimation height of text in cell
         
+        //estimation height of text in cell
         if indexPath.section == 1 {
             let widthBodyTextView = view.frame.width - 8 - 50 - 8 - 8
             let estimatedheight = tweetViewModel.estimatedTextHeight(atTweet : tweetViewModel.getItemAtIndex(index : indexPath.item), widthBodyTextView: widthBodyTextView )

@@ -10,12 +10,16 @@ import Foundation
 import UIKit
 
 class TweetViewModel {
+    // MARK : var
     var tweets : [Tweet] = []
     
+    // MARK : Method
     func call(complete:@escaping ()->()){
-        APIRouter.shareInstance.fetchAllUser { [weak self](data, error) in
-            self?.tweets = data!.tweets!
+        FetchDataService.getListResponse(onCompletion: { [weak self](response) in
+            self?.tweets = response.tweets!
             complete()
+        }) { (error) in
+            print(error!)
         }
     }
     func getAllItem() -> [Tweet]{

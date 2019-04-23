@@ -9,6 +9,7 @@
 import UIKit
 
 class TweetCell: UICollectionViewCell {
+    // MARK : var
     var tweet : Tweet? {
         didSet{
             setupProfileImage()
@@ -27,6 +28,8 @@ class TweetCell: UICollectionViewCell {
             messageTextView.attributedText = atributedText
         }
     }
+    
+    // MARK : let
     let profileImageView : UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
@@ -73,6 +76,8 @@ class TweetCell: UICollectionViewCell {
         lineView.isHidden = false
         return lineView
     }()
+    
+    // MARK : Method
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .white

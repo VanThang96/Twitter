@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Data : Decodable {
+struct Response : Decodable {
     let users : [User]?
     let tweets : [Tweet]?
 }

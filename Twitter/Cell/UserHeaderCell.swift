@@ -9,6 +9,7 @@
 import UIKit
 
 class UserHeaderCell: UICollectionViewCell {
+    // MARK : let
     let headerLabel : UILabel = {
         let label = UILabel()
         label.text = "WHO TO FOLLOW"
@@ -16,6 +17,8 @@ class UserHeaderCell: UICollectionViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    
+    // MARK : Method
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .white

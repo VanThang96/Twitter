@@ -9,6 +9,7 @@
 import UIKit
 
 class UserCell: UICollectionViewCell {
+    // MARK : var
     var user : User? {
         didSet{
             setupProfileImage()
@@ -17,6 +18,7 @@ class UserCell: UICollectionViewCell {
             bodyTextView.text = user!.bio
         }
     }
+    //MARK : let
     let profileImageView : UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
@@ -126,6 +128,7 @@ class UserCell: UICollectionViewCell {
       
     }
     
+    // MARK : Method
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

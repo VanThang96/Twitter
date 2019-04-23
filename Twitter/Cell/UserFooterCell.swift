@@ -9,6 +9,7 @@
 import UIKit
 
 class UserFooterCell: UICollectionViewCell {
+    // MARK : let
     let footerLabel : UILabel = {
         let label = UILabel()
         label.text = "Show see more"
@@ -17,6 +18,8 @@ class UserFooterCell: UICollectionViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    
+    // MARK : Method
     override init(frame: CGRect) {
         super.init(frame: frame)
         let whiteBackground = UIView()
